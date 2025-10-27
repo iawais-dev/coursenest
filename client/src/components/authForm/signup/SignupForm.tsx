@@ -4,9 +4,11 @@ import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { signupSchema } from '@/schemas/auth.schema'
+import { signupUser } from '@/services/AuthServices'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import {z} from 'zod'
 
 function SignupForm() {
@@ -19,8 +21,15 @@ function SignupForm() {
         }
     })
 
-    const onSubmit = (values : z.infer<typeof signupSchema>)=>{
-       console.log(values)
+    const onSubmit = async (values : z.infer<typeof signupSchema>)=>{
+      //  console.log(values)
+      try {
+        await signupUser(values)
+        toast.success("signup successfully")
+      } catch (error) {
+        console.log(error)
+        toast.error("signup error")
+      }
     }
 
   return (

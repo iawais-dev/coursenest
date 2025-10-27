@@ -5,13 +5,16 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 //routes
-import user_route from './routes/user.route.js'
+import userRoutes from './routes/user.route.js'
 
 
 dotenv.config()
 
 const port = 10000
 const app = express()
+
+console.log("Loaded URI:", process.env.MONGODB_URI);
+
 
 app.use(cors({
     origin:'http://localhost:3000',
@@ -24,7 +27,7 @@ app.use(express.urlencoded({extended:true}))
 databaseConnection()
 
 
-app.use('/api/user',user_route)
+app.use('/api/user',userRoutes)
 
 app.get('/',(req,res)=>(
     res.send("hello testing asdsthe ts with node")

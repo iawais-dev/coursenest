@@ -9,7 +9,7 @@ const signupController = async (req:Request,res:Response) => {
     try {
         const UserExist = await UserModel.findOne({email:email})
         if(UserExist){
-            res.status(409).json({message:'user already exists'})
+           return res.status(409).json({message:'user already exists'})
         }
         else{
             const salt = 10
@@ -29,7 +29,7 @@ const signupController = async (req:Request,res:Response) => {
                 sameSite: 'strict',
                 // secure: 
             })
-            res.status(201).json({
+           return res.status(201).json({
                 message:"signup successful",
                 user:{
                     id:user._id,
