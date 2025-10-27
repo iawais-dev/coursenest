@@ -6,21 +6,22 @@ import { Control } from 'react-hook-form'
 interface shadecnField {
     name:string,
     placeholder:string,
-    label:string,
+    label?:string,
     control:Control<any>,
-    type?:string
+    type?:string,
+    inputClass?:string
 }
 
-function ShadecnFormField({name,placeholder,label,control,type="text"}:shadecnField) {
+function ShadecnFormField({name,placeholder,label,control,type="text",inputClass}:shadecnField) {
   return (
   <FormField
         name={name}
         control={control}
         render={({field})=>(
-            <FormItem>
+            <FormItem className=''>
                 <FormLabel>{label}</FormLabel>
                 <FormControl>
-                    <Input placeholder={placeholder} type={type} {...field} />
+                    <Input className={inputClass} placeholder={placeholder} type={type} {...field} />
                 </FormControl>
                 <FormMessage />
             </FormItem>

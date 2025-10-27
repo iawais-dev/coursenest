@@ -8,8 +8,8 @@ interface ICourse extends Document {
  category:string,
  thumbnail:string,
  createdby: Types.ObjectId,
- lecture: [],
- quiz: [],
+ lectures: Types.ObjectId[],
+ quizzes: Types.ObjectId[],
 }
 
 const courseSchema = new Schema<ICourse>({
@@ -35,17 +35,17 @@ const courseSchema = new Schema<ICourse>({
     },
     createdby:{
         type: Schema.Types.ObjectId,
-        ref:"UserModel"
+        ref:"User"
     },
-    lecture:{
-        type: [],
-        required:true
-    },
-    quiz:{
-        type: [],
-        required:true
-    },
+    lectures: [{
+        type: Schema.Types.ObjectId, 
+        ref: "Lecture" 
+    }],
+    quizzes: [{ 
+        type: Schema.Types.ObjectId, 
+        ref: "Quiz" 
+    }],
 
 })
 
-export const Course = model<ICourse>("CourseModel",courseSchema)
+export const CourseModel = model<ICourse>("Course",courseSchema)

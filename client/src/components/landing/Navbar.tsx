@@ -1,11 +1,13 @@
 'use client'
 import { LMS_NAME } from '@/constants/constants';
 import { BookOpen, Menu, X } from 'lucide-react'
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 function Navbar() {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -13,6 +15,9 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleSignIn = ()=>{
+   router.push('/login')
+  }
 
   return (
      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -34,7 +39,7 @@ function Navbar() {
               <a href="#" className=" hover:text-primary font-medium">Features</a>
               <a href="#" className=" hover:text-primary font-medium">Pricing</a>
               <a href="#" className=" hover:text-primary font-medium">About</a>
-              <button className="bg-primary text-white px-6 py-2 rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+              <button onClick={handleSignIn} className="bg-primary text-white px-6 py-2 rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
                 Sign In
               </button>
             </div>
@@ -56,7 +61,7 @@ function Navbar() {
               <a href="#" className="block text-gray-700 font-medium">Features</a>
               <a href="#" className="block text-gray-700 font-medium">Pricing</a>
               <a href="#" className="block text-gray-700 font-medium">About</a>
-              <button className="w-full bg-primary text-white px-6 py-2 rounded-lg">
+              <button onClick={handleSignIn} className="w-full bg-primary text-white px-6 py-2 rounded-lg">
                 Sign In
               </button>
             </div>
