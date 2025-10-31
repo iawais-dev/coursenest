@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/theme_context";
 import { Bounce, ToastContainer } from "react-toastify";
+import { UserProvider } from "@/context/userDetails.context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
+          <UserProvider>
+
+
           {children}
           <ToastContainer
             position="top-right"
@@ -43,7 +47,8 @@ export default function RootLayout({
             pauseOnHover
             theme="light"
             transition={Bounce}
-          />
+            />
+            </UserProvider>
         </ThemeProvider>
       </body>
     </html>

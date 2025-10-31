@@ -8,8 +8,8 @@ interface ICourse extends Document {
  category:string,
  thumbnail:string,
  createdby: Types.ObjectId,
- lectures: Types.ObjectId[],
- quizzes: Types.ObjectId[],
+ lectures?: Types.ObjectId[],
+ quizzes ?: Types.ObjectId[],
 }
 
 const courseSchema = new Schema<ICourse>({

@@ -12,7 +12,7 @@ interface shadecnField {
     inputClass?:string
 }
 
-function ShadecnFormField({name,placeholder,label,control,type="text",inputClass}:shadecnField) {
+function ShadecnFormField({name,placeholder,label,control,type,inputClass}:shadecnField) {
   return (
   <FormField
         name={name}
