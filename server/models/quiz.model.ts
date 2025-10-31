@@ -6,7 +6,7 @@ interface IQuiz extends Document {
     options: string[],
     answer:string,
     createdBy: Types.ObjectId,
-    course: Types.ObjectId,
+    lecture: Types.ObjectId,
 }
 
 
@@ -28,9 +28,9 @@ const quizSchema = new Schema<IQuiz>({
         type: Schema.Types.ObjectId,
         ref:"User"
     },
-    course:{
+    lecture:{
         type: Schema.Types.ObjectId,
-        ref:"Course"
+        ref:"Lecture"    
     },
 })
 

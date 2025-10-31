@@ -6,6 +6,7 @@ interface ILecture extends Document {
     description: string,
     thumbnail: string,
     createdBy: Types.ObjectId,
+    quizzes : Types.ObjectId,
     course: Types.ObjectId
 }
 
@@ -30,6 +31,10 @@ const lectureSchema = new Schema<ILecture>({
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    quizzes: {
+        type: Schema.Types.ObjectId,
+        ref: "Quiz"
     },
     course: {
         type: Schema.Types.ObjectId,
