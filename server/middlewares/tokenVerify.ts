@@ -14,7 +14,9 @@ export const tokenVerify = async (req:Request ,res:Response,next:NextFunction)=>
     else {
         try {
             let decode = jwt.verify(token,process.env.JWT_SECRET_KEY!) as any
-            (req as any).user = decode
+            req.user = decode
+
+            console.log(decode)
 
             next()
         } catch (error) {

@@ -9,7 +9,6 @@ interface ICourse extends Document {
  thumbnail:string,
  createdby: Types.ObjectId,
  lectures?: Types.ObjectId[],
- quizzes ?: Types.ObjectId[],
 }
 
 const courseSchema = new Schema<ICourse>({
@@ -41,11 +40,6 @@ const courseSchema = new Schema<ICourse>({
         type: Schema.Types.ObjectId, 
         ref: "Lecture" 
     }],
-    quizzes: [{ 
-        type: Schema.Types.ObjectId, 
-        ref: "Quiz" 
-    }],
-
 })
 
 export const CourseModel = model<ICourse>("Course",courseSchema)

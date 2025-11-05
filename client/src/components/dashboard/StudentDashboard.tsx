@@ -149,7 +149,6 @@ import BottomNav from './comps/BottomNav'
 function StudentDashboard() {
   return (
     <div>
-        <TopBar role='student' username='awais' userId='901348103' />
       <div className='max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8'>
         <div className="mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Welcome back! 👋</h1>

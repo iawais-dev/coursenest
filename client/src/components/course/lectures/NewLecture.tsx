@@ -1,0 +1,104 @@
+'use client'
+import React from 'react'
+import { Form } from '../../ui/form'
+import { Lock, Mail, GraduationCap } from 'lucide-react'
+import ShadecnFormField from '../../reusable/ShadecnFormField'
+import { Button } from '../../ui/button'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import z from 'zod'
+import { loginUser, upgradeToTeacher } from '@/services/auth.services'
+import { toast } from 'react-toastify'
+import { useParams, useRouter } from 'next/navigation'
+import { loginSchema } from '@/schemas/auth.schema'
+import { teacherFormSchema } from '@/schemas/teacherform.schema'
+import { courseSchema } from '@/schemas/course.schema'
+import { AddNewLecture, newCourse } from '@/services/course.services'
+import { lectureSchema } from '@/schemas/lecture.schema'
+
+
+
+function NewLecture() {
+       const router = useRouter()
+       const {id} = useParams()
+
+    const form = useForm<z.infer<typeof lectureSchema>>({
+        resolver: zodResolver(lectureSchema),
+        defaultValues:{
+             title:'',
+             description:'',
+             videoUrl: undefined,
+             thumbnail: undefined,
+
+        }
+    })
+ 
+    const onSubmit = async (values : z.infer<typeof lectureSchema>)=>{
+       try {
+        await AddNewLecture(id,values)
+        //  toast.success("") 
+         router.push(`/course/${id}/lectures`)
+       } catch (error) {
+         console.log(error)
+         toast.error("Something went wrong!")
+       }
+    }
+
+  return (
+       <div>
+        <div className="text-center mb-8 pt-20">
+         {/* <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+           <GraduationCap className="w-8 h-8 text-primary" />
+         </div> */}
+         <h1 className="text-3xl font-bold text-[var(--text-heading)] mb-2">New Lecture</h1>
+         {/* <p className="text-[var(--text-muted)]">Fill the form to continue your  <span className='font-bold'>teaching</span> journey</p> */}
+       </div>
+    <Form  {...form}>
+
+        <form encType='multipart/form-data' onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-lg p-5 bg-muted shadow-2xl shadow-muted rounded-xl  mx-auto">
+          <div className="space-y-2">
+            <div className="relative  ">
+              <ShadecnFormField name='title' placeholder='e.g. “Web Developer & Instructor”' label='Title' inputClass='text-[var(--text-muted)] pl-10 h-12 bg-background border-border focus:border-primary transition-colors' control={form.control} />
+              {/* <Mail className="absolute left-3 top-1/2  w-5 h-5 text-muted-foreground" /> */}
+            </div>
+          </div>
+
+           <div className="space-y-2">
+            <div className="relative  ">
+              <ShadecnFormField name='description' placeholder='e.g. “Web Developer & Instructor”' label='description' inputClass='text-[var(--text-muted)] pl-10 h-12 bg-background border-border focus:border-primary transition-colors' control={form.control} />
+              {/* <Mail className="absolute left-3 top-1/2  w-5 h-5 text-muted-foreground" /> */}
+            </div>
+          </div>
+
+          
+          <div className="space-y-2">
+            <div className="relative">
+              {/* <Lock className="absolute left-3 top-1/2  w-5 h-5 text-muted-foreground" /> */}
+             <ShadecnFormField name='videoUrl' placeholder='e.g. development' inputClass='pl-10 h-12 bg-background border-border focus:border-primary transition-colors' type='file' label='Video' control={form.control} />
+
+            </div>
+          </div>
+         
+          <div className="space-y-2">
+            <div className="relative">
+              {/* <Lock className="absolute left-3 top-1/2  w-5 h-5 text-muted-foreground" /> */}
+             <ShadecnFormField name='thumbnail' placeholder='' type='file' inputClass='pl-10 h-12 bg-background border-border focus:border-primary transition-colors' label='Thumbnail' control={form.control} />
+
+            </div>
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full h-12 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? 'Submitting...' : 'Submit'}
+          </Button>
+
+        </form>
+    </Form>    
+    </div>
+  )
+}
+
+export default NewLecture

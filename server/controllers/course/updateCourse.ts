@@ -2,15 +2,15 @@ import type { Request, Response } from "express"
 import { CourseModel } from "../../models/course.model.js"
 
 
-interface AuthReq extends Request {
-    user:{
-        userId: string
-    }
-}
+// interface AuthReq extends Request {
+//     user:{
+//         userId: string
+//     }
+// }
 
 
 
-export const updateCourse = async (req: AuthReq, res: Response) => {
+export const updateCourse = async (req: Request, res: Response) => {
     try {
         const courseId = req.params.id
         const course = await CourseModel.findById(courseId)
@@ -18,7 +18,7 @@ export const updateCourse = async (req: AuthReq, res: Response) => {
 
         if (!course) return res.status(404).json({ message: 'course not found' })
 
-        if(course?.createdby.toString() !== req.user.userId) return res.status(403).json({message:"user is not autorized to update this course"})
+        if(course?.createdby.toString() !== req.user?.userId) return res.status(403).json({message:"user is not autorized to update this course"})
 
 
         const updatedCourse = await CourseModel.findByIdAndUpdate(courseId, {

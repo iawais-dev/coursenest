@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 type UserModelType = {
     username : string,
@@ -10,6 +10,7 @@ type UserModelType = {
     qualification ?: string,
     experience ?: string,
     languages ?: string,
+    courses?: Types.ObjectId
 
 }
 
@@ -36,8 +37,6 @@ const UserSchema  = new mongoose.Schema<UserDocument>({
     //teacher user model
     title : {
         type:String,
-        // required:true
-        // required : function () {return this.role === 'teacher'}
     },
     bio : {
         type:String,
@@ -55,6 +54,10 @@ const UserSchema  = new mongoose.Schema<UserDocument>({
         type:String,
         // required:true
     },
+    courses : {
+        type : Schema.Types.ObjectId,
+        ref : 'Course'
+    }
 })
 
 export const UserModel = mongoose.model<UserDocument>('User',UserSchema)

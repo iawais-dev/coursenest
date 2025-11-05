@@ -1,18 +1,25 @@
-import { Award, BookOpen, Clock, TrendingUp } from 'lucide-react';
+import { Award, BookOpen, Clock, FileQuestion, TrendingUp, Users } from 'lucide-react';
 import React from 'react'
 import { Card } from '../../ui/card';
 
 
-  const stats = [
+  const studentStats = [
     { label: 'Courses Enrolled', value: '8', icon: BookOpen, color: 'from-primary/20 to-primary/10' },
     { label: 'Hours Learned', value: '124', icon: Clock, color: 'from-secondary/20 to-secondary/10' },
-    { label: 'Certificates', value: '3', icon: Award, color: 'from-green-500/20 to-green-500/10' },
     { label: 'Current Streak', value: '12 days', icon: TrendingUp, color: 'from-orange-500/20 to-orange-500/10' },
   ];
 
-function StatsGrid() {
+   const teacherStats = [
+    { label: 'Courses Created', value: '5', icon: BookOpen, color: 'from-primary/20 to-primary/10' },
+    { label: 'Total Students', value: '142', icon: Users, color: 'from-green-500/20 to-green-500/10' },
+    { label: 'Quizzes Published', value: '18', icon: FileQuestion, color: 'from-purple-500/20 to-purple-500/10' }
+  ]
+
+function StatsGrid({role = 'teacher'}) {
+
+  const stats = role === 'student' ? studentStats : teacherStats
   return (
-       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
+       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 mb-8">
               {stats.map((stat) => (
                 <Card key={stat.label} className="p-4 sm:p-6 border-0 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 bg-card">
                   <div className="flex flex-col gap-3">

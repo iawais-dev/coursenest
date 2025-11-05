@@ -21,7 +21,15 @@ function ShadecnFormField({name,placeholder,label,control,type,inputClass}:shade
             <FormItem className=''>
                 <FormLabel>{label}</FormLabel>
                 <FormControl>
+                    {
+                    type === 'file'
+                    ?
+                    <Input type='file' onChange={(e)=> field.onChange(e.target.files?.[0])}
+                    className={inputClass}
+                    />
+                    :
                     <Input className={inputClass} placeholder={placeholder} type={type} {...field} />
+                    }
                 </FormControl>
                 <FormMessage />
             </FormItem>

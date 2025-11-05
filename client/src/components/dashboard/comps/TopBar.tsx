@@ -1,8 +1,10 @@
 'use client'
-import { Bell, GraduationCap, Users } from 'lucide-react'
+import { Bell, GraduationCap, LogOut, Users } from 'lucide-react'
 import React from 'react'
 import { Button } from '../../ui/button'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { logoutUser } from '@/services/auth.services'
 
 type TopBarProps = {
     role: 'student' | 'teacher',
@@ -15,6 +17,17 @@ function TopBar({ role, username, userId }: TopBarProps) {
 
     const handleBecomeTeacher = ()=>{
         router.push('/become-a-teacher')
+    }
+
+    const handleLogout = async()=>{
+        try {
+            await logoutUser()
+            router.push('/')
+            
+        } catch (error) {
+            
+        }
+
     }
     return (
         <div className="border-b border-border bg-card/50 backdrop-blur-md sticky top-0 z-20 shadow-sm">
@@ -38,6 +51,14 @@ function TopBar({ role, username, userId }: TopBarProps) {
                     </div>
 
                     <div className="flex items-center gap-3">
+                        <Button onClick={handleLogout} variant="ghost" size="icon" className="relative">
+                            <LogOut className="w-5 h-5" />
+                            <span className="">Logout</span>
+                        </Button>
+                        
+                    </div>
+
+                    <div className="flex items-center gap-3">
                         <Button variant="ghost" size="icon" className="relative">
                             <Bell className="w-5 h-5" />
                             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
@@ -50,10 +71,12 @@ function TopBar({ role, username, userId }: TopBarProps) {
                                 </Button>
 
                                 :
+                                <Link href='/course/new-course' >
                                 <Button className="hidden sm:flex bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
                                     <Users className="w-4 h-4 mr-2" />
-                                    Manage Courses
+                                    Add New Course
                                 </Button>
+                                </Link>
 
                         }
                     </div>

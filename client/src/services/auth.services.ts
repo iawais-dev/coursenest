@@ -17,12 +17,16 @@ export const loginUser = (values: z.infer <typeof loginSchema>)=>{
     return Api.post('/login',values)
 }
 
+export const logoutUser = ()=>{
+    return Api.get('/logout')
+}
 
 
 export const upgradeToTeacher = (values: z.infer <typeof teacherFormSchema>)=>{
     return Api.put('/upgrade-teacher',values)
 }
 
-export const me = ()=>{
+export const Me = ()=>{
     return Api.get('/me')
 }
+

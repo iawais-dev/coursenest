@@ -7,7 +7,8 @@ import React from 'react'
 function page() {
 
     const {user} = useUser()
-    console.log(user)
+
+
   return (
     <>
      {

@@ -4,8 +4,12 @@ import { UserModel } from "../../models/user.model.js"
 
 export const getCurrentUser = async (req:Request, res:Response) =>{
     try {
-        const userId = (req as any).user.userId
+        const userId = req.user?.userId
         const user  = await UserModel.findById(userId)
+
+        console.log("Cookies received:", req.cookies);
+
+        
 
         if(!user)
             return res.status(404).json({message:"user not found"})

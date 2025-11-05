@@ -13,7 +13,6 @@ const logoutController = async (req:Request,res:Response) => {
         res.status(500).json({message:"error in gettin loggedOut",error})
         console.error(error)
     }
-    
 }
 
 export default logoutController
