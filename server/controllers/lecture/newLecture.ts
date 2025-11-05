@@ -7,17 +7,22 @@ export const newLecture = async (req:Request, res:Response) =>{
     try {
         const teacher = req.user?.userId
         const {id} = req.params
-        const {title, description,videoUrl} = req.body
+        const {title, description} = req.body
 
-        if(!req.file) return res.status(404).json({message:'thumbnail not found'})
+        if(!req.files) return res.status(404).json({message:'thumbnail not found'})
 
-        const fileUrl = `${req.protocol}://${req.get('host')}/uploads/thumbnails/lectures/${req.file.filename}`
+        const files = req.files as {[fieldName :string]: Express.Multer.File[]}
+        const thumbnailFile = files.thumbnail
+        const videoFile = files.videoUrl
+
+        const thumbnail = `${req.protocol}://${req.get('host')}/uploads/thumbnails/lectures/${thumbnailFile}`
+        const videoUrl =`${req.protocol}://${req.get('host')}/uploads/videos/${videoFile}`
 
         const newLecture = await LectureModel.create({
             title,
             description,
             videoUrl,
-            thumbnail:fileUrl,
+            thumbnail,
             createdBy:teacher,
             course:id
         })
